@@ -4,17 +4,23 @@
   "description": "A WebGUI template created with Vue.js for the frontend and Golang for the backend.",
   "main": "src/main.js",
   "scripts": {
-    // scriptsセクションは、プロジェクトのビルドやサーバーの起動などのコマンドを定義します。
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "eslint . --ext .js,.vue"
   },
   "dependencies": {
-    // dependenciesセクションは、プロジェクトが依存するパッケージを定義します。
     "vue": "^3.0.0"
   },
   "devDependencies": {
-    // devDependenciesセクションは、開発環境でのみ使用されるパッケージを定義します。
-    "@vue/cli-service": "^4.5.0"
+    "@vue/cli-service": "^4.5.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.0.0",
+    "husky": "^7.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   },
   "author": "",
   "license": "Apache-2.0"

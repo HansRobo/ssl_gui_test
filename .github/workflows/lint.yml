@@ -22,7 +22,7 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
+        run: cd frontend && npm install
 
       - name: Run ESLint
-        run: npm run lint
+        run: cd frontend && npm run lint

@@ -65,7 +65,8 @@ export default {
   mounted() {
     const canvas = this.$refs.canvas;
     const ctx = canvas.getContext('2d');
-    this.drawShapes();
+    // ctx変数を使用してdrawShapes()を呼び出し、リンターエラーを回避します。
+    this.drawShapes(ctx);
   },
   watch: {
     shapes: 'drawShapes'

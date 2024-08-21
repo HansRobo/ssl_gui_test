@@ -1,0 +1,24 @@
+run:
+  timeout: 5m
+
+linters:
+  enable:
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - varcheck
+
+linters-settings:
+  errcheck:
+    exclude:
+      - "fmt:.*"
+  govet:
+    check-shadowing: true
+  staticcheck:
+    checks: ["all"]

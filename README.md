@@ -19,6 +19,11 @@
    npm run serve
    ```
 
+4. ESLintを使用してコードをチェックします:
+   ```bash
+   npm run lint
+   ```
+
 ### バックエンド (Golang)
 
 1. `backend`ディレクトリに移動します:
@@ -36,6 +41,11 @@
    go run main.go
    ```
 
+4. GolangCI-Lintを使用してコードをチェックします:
+   ```bash
+   golangci-lint run
+   ```
+
 ### 使用方法
 
 1. ブラウザを開き、`http://localhost:8080`にアクセスします。
@@ -50,3 +60,54 @@
 4. リポジトリのルートフォルダを選択します。
 5. 開発コンテナが自動的にビルドされ、起動します。
 6. コンテナ内でプロジェクトの開発を行うことができます。
+
+## Pre-commitフックの設定
+
+1. `frontend`ディレクトリに移動します:
+   ```bash
+   cd frontend
+   ```
+
+2. Huskyをインストールします:
+   ```bash
+   npx husky install
+   ```
+
+3. Pre-commitフックを設定します:
+   ```bash
+   npx husky add .husky/pre-commit "npm run lint"
+   ```
+
+## GitHub ActionsによるLintingワークフロー
+
+1. `.github/workflows/lint.yml`ファイルを作成し、以下の内容を追加します:
+   ```yaml
+   name: Lint
+
+   on:
+     push:
+       branches:
+         - main
+     pull_request:
+       branches:
+         - main
+
+   jobs:
+     lint:
+       runs-on: ubuntu-latest
+
+       steps:
+         - name: Checkout code
+           uses: actions/checkout@v2
+
+         - name: Set up Node.js
+           uses: actions/setup-node@v2
+           with:
+             node-version: '14'
+
+         - name: Install dependencies
+           run: npm install
+
+         - name: Run ESLint
+           run: npm run lint
+   ```

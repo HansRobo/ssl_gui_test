@@ -13,6 +13,7 @@ export default {
     };
   },
   methods: {
+    // drawShapesメソッドは、キャンバス上に図形を描画します。
     drawShapes() {
       const canvas = this.$refs.canvas;
       const ctx = canvas.getContext('2d');
@@ -34,12 +35,14 @@ export default {
         }
       });
     },
+    // drawCircleメソッドは、キャンバス上に円を描画します。
     drawCircle(ctx, shape) {
       ctx.beginPath();
       ctx.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
       ctx.fillStyle = shape.color;
       ctx.fill();
     },
+    // drawLineメソッドは、キャンバス上に線を描画します。
     drawLine(ctx, shape) {
       ctx.beginPath();
       ctx.moveTo(shape.x1, shape.y1);
@@ -47,10 +50,12 @@ export default {
       ctx.strokeStyle = shape.color;
       ctx.stroke();
     },
+    // drawRectangleメソッドは、キャンバス上に長方形を描画します。
     drawRectangle(ctx, shape) {
       ctx.fillStyle = shape.color;
       ctx.fillRect(shape.x, shape.y, shape.width, shape.height);
     },
+    // drawTextメソッドは、キャンバス上にテキストを描画します。
     drawText(ctx, shape) {
       ctx.font = shape.font;
       ctx.fillStyle = shape.color;

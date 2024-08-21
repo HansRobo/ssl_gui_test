@@ -17,6 +17,7 @@ var upgrader = websocket.Upgrader{
 var clients = make(map[*websocket.Conn]bool)
 var broadcast = make(chan []byte)
 
+// メイン関数は、WebSocketサーバーを起動し、UDPパケットを処理するための関数をゴルーチンとして実行します。
 func main() {
 	http.HandleFunc("/ws", handleConnections)
 	go handleUDP()
@@ -28,6 +29,7 @@ func main() {
 	}
 }
 
+// handleConnections関数は、WebSocket接続を処理し、クライアントからのメッセージを受信します。
 func handleConnections(w http.ResponseWriter, r *http.Request) {
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -49,6 +51,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// handleUDP関数は、UDPサーバーを起動し、受信したUDPパケットをブロードキャストチャネルに送信します。
 func handleUDP() {
 	addr := net.UDPAddr{
 		Port: 8081,
@@ -73,6 +76,7 @@ func handleUDP() {
 	}
 }
 
+// handleMessages関数は、ブロードキャストチャネルからメッセージを受信し、すべてのクライアントに送信します。
 func handleMessages() {
 	for {
 		msg := <-broadcast

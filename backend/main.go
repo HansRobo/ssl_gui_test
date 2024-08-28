@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
+	"github.com/golang/protobuf/proto"
+	"github.com/yourusername/yourproject/proto"
 )
 
 var upgrader = websocket.Upgrader{
@@ -54,8 +56,8 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 // handleUDP関数は、UDPサーバーを起動し、受信したUDPパケットをブロードキャストチャネルに送信します。
 func handleUDP() {
 	addr := net.UDPAddr{
-		Port: 8081,
-		IP:   net.ParseIP("0.0.0.0"),
+		Port: 10006,
+		IP:   net.ParseIP("224.5.23.2"),
 	}
 	conn, err := net.ListenUDP("udp", &addr)
 	if err != nil {
@@ -72,7 +74,28 @@ func handleUDP() {
 			continue
 		}
 		fmt.Println("Received UDP packet:", string(buf[:n]))
-		broadcast <- buf[:n]
+		handleSSLWrapperPacket(buf[:n])
+	}
+}
+
+// handleSSLWrapperPacket関数は、SSL_WrapperPacketを処理し、プリミティブを抽出してブロードキャストチャネルに送信します。
+func handleSSLWrapperPacket(data []byte) {
+	var packet proto.SSL_WrapperPacket
+	err := proto.Unmarshal(data, &packet)
+	if err != nil {
+		fmt.Println("Error unmarshalling SSL_WrapperPacket:", err)
+		return
+	}
+
+	if packet.Visualization != nil {
+		for _, line := range packet.Visualization.Lines {
+			primitive := fmt.Sprintf("line,%f,%f,%f,%f", line.StartX, line.StartY, line.EndX, line.EndY)
+			broadcast <- []byte(primitive)
+		}
+		for _, circle := range packet.Visualization.Circles {
+			primitive := fmt.Sprintf("circle,%f,%f,%f", circle.CenterX, circle.CenterY, circle.Radius)
+			broadcast <- []byte(primitive)
+		}
 	}
 }
 

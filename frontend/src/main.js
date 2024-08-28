@@ -10,6 +10,7 @@ const ws = new WebSocket('ws://localhost:8080');
 ws.onmessage = (event) => {
   const shapes = JSON.parse(event.data);
   app.config.globalProperties.$shapes = shapes;
+  app.component('App').methods.drawShapes();
 };
 
 app.mount('#app');

@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
+	"github.com/HansRobo/ssl_gui_test/pkg/ssl_messages"
 )
 
 var upgrader = websocket.Upgrader{
@@ -54,8 +55,8 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 // handleUDP関数は、UDPサーバーを起動し、受信したUDPパケットをブロードキャストチャネルに送信します。
 func handleUDP() {
 	addr := net.UDPAddr{
-		Port: 8081,
-		IP:   net.ParseIP("0.0.0.0"),
+		Port: 10006,
+		IP:   net.ParseIP("224.5.23.2"),
 	}
 	conn, err := net.ListenUDP("udp", &addr)
 	if err != nil {
@@ -64,16 +65,58 @@ func handleUDP() {
 	}
 	defer conn.Close()
 
-	buf := make([]byte, 1024)
+	buf := make([]byte, 65535)
 	for {
 		n, _, err := conn.ReadFromUDP(buf)
 		if err != nil {
 			fmt.Println("Error reading UDP packet:", err)
 			continue
 		}
-		fmt.Println("Received UDP packet:", string(buf[:n]))
-		broadcast <- buf[:n]
+		var packet ssl_messages.SSL_WrapperPacket
+		err = proto.Unmarshal(buf[:n], &packet)
+		if err != nil {
+			fmt.Println("Error unmarshalling packet:", err)
+			continue
+		}
+		shapeInfo := extractShapeInfo(packet)
+		shapeData, err := json.Marshal(shapeInfo)
+		if err != nil {
+			fmt.Println("Error marshalling shape info:", err)
+			continue
+		}
+		broadcast <- shapeData
 	}
+}
+
+// extractShapeInfo関数は、SSL_WrapperPacketから図形情報を抽出します。
+func extractShapeInfo(packet ssl_messages.SSL_WrapperPacket) []map[string]interface{} {
+	var shapes []map[string]interface{}
+	if packet.Geometry != nil {
+		for _, line := range packet.Geometry.Field.FieldLines {
+			shape := map[string]interface{}{
+				"type":      "line",
+				"x1":        line.P1.X,
+				"y1":        line.P1.Y,
+				"x2":        line.P2.X,
+				"y2":        line.P2.Y,
+				"thickness": line.Thickness,
+			}
+			shapes = append(shapes, shape)
+		}
+		for _, arc := range packet.Geometry.Field.FieldArcs {
+			shape := map[string]interface{}{
+				"type":      "arc",
+				"centerX":   arc.Center.X,
+				"centerY":   arc.Center.Y,
+				"radius":    arc.Radius,
+				"startAngle": arc.A1,
+				"endAngle":   arc.A2,
+				"thickness": arc.Thickness,
+			}
+			shapes = append(shapes, shape)
+		}
+	}
+	return shapes
 }
 
 // handleMessages関数は、ブロードキャストチャネルからメッセージを受信し、すべてのクライアントに送信します。

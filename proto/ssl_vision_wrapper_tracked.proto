@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-option go_package = "github.com/RoboCup-SSL/ssl-vision-client/pkg/tracked";
+option go_package = "github.com/HansRobo/ssl_gui_test/pkg/ssl_messages";
 
 import "ssl_vision_detection_tracked.proto";
 

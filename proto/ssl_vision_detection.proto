@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-option go_package = "github.com/RoboCup-SSL/ssl-vision-client/pkg/vision";
+option go_package = "github.com/HansRobo/ssl_gui_test/pkg/ssl_messages";
 
 message SSL_DetectionBall {
   required float  confidence = 1;

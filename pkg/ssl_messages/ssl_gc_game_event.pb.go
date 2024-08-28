@@ -4,10 +4,9 @@
 // 	protoc        v3.12.4
 // source: ssl_gc_game_event.proto
 
-package referee
+package ssl_messages
 
 import (
-	tracked "github.com/RoboCup-SSL/ssl-vision-client/pkg/tracked"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -1029,11 +1028,11 @@ type GameEvent_BallLeftField struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that last touched the ball
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that last touched the ball
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the ball left the field [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 }
 
 func (x *GameEvent_BallLeftField) Reset() {
@@ -1068,11 +1067,11 @@ func (*GameEvent_BallLeftField) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 0}
 }
 
-func (x *GameEvent_BallLeftField) GetByTeam() tracked.Team {
+func (x *GameEvent_BallLeftField) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BallLeftField) GetByBot() uint32 {
@@ -1082,7 +1081,7 @@ func (x *GameEvent_BallLeftField) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BallLeftField) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BallLeftField) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1096,13 +1095,13 @@ type GameEvent_AimlessKick struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that last touched the ball
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that last touched the ball
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the ball left the field [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location where the ball was last touched [m]
-	KickLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
+	KickLocation *Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
 }
 
 func (x *GameEvent_AimlessKick) Reset() {
@@ -1137,11 +1136,11 @@ func (*GameEvent_AimlessKick) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 1}
 }
 
-func (x *GameEvent_AimlessKick) GetByTeam() tracked.Team {
+func (x *GameEvent_AimlessKick) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_AimlessKick) GetByBot() uint32 {
@@ -1151,14 +1150,14 @@ func (x *GameEvent_AimlessKick) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_AimlessKick) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_AimlessKick) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_AimlessKick) GetKickLocation() *tracked.Vector2 {
+func (x *GameEvent_AimlessKick) GetKickLocation() *Vector2 {
 	if x != nil {
 		return x.KickLocation
 	}
@@ -1172,15 +1171,15 @@ type GameEvent_Goal struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that scored the goal
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the team that shot the goal (different from by_team for own goals)
-	KickingTeam *tracked.Team `protobuf:"varint,6,opt,name=kicking_team,json=kickingTeam,enum=Team" json:"kicking_team,omitempty"`
+	KickingTeam *Team `protobuf:"varint,6,opt,name=kicking_team,json=kickingTeam,enum=Team" json:"kicking_team,omitempty"`
 	// the bot that shot the goal
 	KickingBot *uint32 `protobuf:"varint,2,opt,name=kicking_bot,json=kickingBot" json:"kicking_bot,omitempty"`
 	// the location where the ball entered the goal [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location where the ball was kicked (for deciding if this was a valid goal) [m]
-	KickLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
+	KickLocation *Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
 	// the maximum height the ball reached during the goal kick (for deciding if this was a valid goal) [m]
 	MaxBallHeight *float32 `protobuf:"fixed32,5,opt,name=max_ball_height,json=maxBallHeight" json:"max_ball_height,omitempty"`
 	// number of robots of scoring team when the ball entered the goal (for deciding if this was a valid goal)
@@ -1223,18 +1222,18 @@ func (*GameEvent_Goal) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 2}
 }
 
-func (x *GameEvent_Goal) GetByTeam() tracked.Team {
+func (x *GameEvent_Goal) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
-func (x *GameEvent_Goal) GetKickingTeam() tracked.Team {
+func (x *GameEvent_Goal) GetKickingTeam() Team {
 	if x != nil && x.KickingTeam != nil {
 		return *x.KickingTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_Goal) GetKickingBot() uint32 {
@@ -1244,14 +1243,14 @@ func (x *GameEvent_Goal) GetKickingBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_Goal) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_Goal) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_Goal) GetKickLocation() *tracked.Vector2 {
+func (x *GameEvent_Goal) GetKickLocation() *Vector2 {
 	if x != nil {
 		return x.KickLocation
 	}
@@ -1293,13 +1292,13 @@ type GameEvent_IndirectGoal struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that tried to shoot the goal
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that kicked the ball - at least the team must be set
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the ball entered the goal [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location where the ball was kicked [m]
-	KickLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
+	KickLocation *Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
 }
 
 func (x *GameEvent_IndirectGoal) Reset() {
@@ -1334,11 +1333,11 @@ func (*GameEvent_IndirectGoal) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 3}
 }
 
-func (x *GameEvent_IndirectGoal) GetByTeam() tracked.Team {
+func (x *GameEvent_IndirectGoal) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_IndirectGoal) GetByBot() uint32 {
@@ -1348,14 +1347,14 @@ func (x *GameEvent_IndirectGoal) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_IndirectGoal) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_IndirectGoal) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_IndirectGoal) GetKickLocation() *tracked.Vector2 {
+func (x *GameEvent_IndirectGoal) GetKickLocation() *Vector2 {
 	if x != nil {
 		return x.KickLocation
 	}
@@ -1369,13 +1368,13 @@ type GameEvent_ChippedGoal struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that tried to shoot the goal
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that kicked the ball
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the ball entered the goal [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location where the ball was kicked [m]
-	KickLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
+	KickLocation *Vector2 `protobuf:"bytes,4,opt,name=kick_location,json=kickLocation" json:"kick_location,omitempty"`
 	// the maximum height [m] of the ball, before it entered the goal and since the last kick [m]
 	MaxBallHeight *float32 `protobuf:"fixed32,5,opt,name=max_ball_height,json=maxBallHeight" json:"max_ball_height,omitempty"`
 }
@@ -1412,11 +1411,11 @@ func (*GameEvent_ChippedGoal) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 4}
 }
 
-func (x *GameEvent_ChippedGoal) GetByTeam() tracked.Team {
+func (x *GameEvent_ChippedGoal) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_ChippedGoal) GetByBot() uint32 {
@@ -1426,14 +1425,14 @@ func (x *GameEvent_ChippedGoal) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_ChippedGoal) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_ChippedGoal) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_ChippedGoal) GetKickLocation() *tracked.Vector2 {
+func (x *GameEvent_ChippedGoal) GetKickLocation() *Vector2 {
 	if x != nil {
 		return x.KickLocation
 	}
@@ -1454,11 +1453,11 @@ type GameEvent_BotTooFastInStop struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that was too fast
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the bot speed [m/s]
 	Speed *float32 `protobuf:"fixed32,4,opt,name=speed" json:"speed,omitempty"`
 }
@@ -1495,11 +1494,11 @@ func (*GameEvent_BotTooFastInStop) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 5}
 }
 
-func (x *GameEvent_BotTooFastInStop) GetByTeam() tracked.Team {
+func (x *GameEvent_BotTooFastInStop) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotTooFastInStop) GetByBot() uint32 {
@@ -1509,7 +1508,7 @@ func (x *GameEvent_BotTooFastInStop) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotTooFastInStop) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotTooFastInStop) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1530,11 +1529,11 @@ type GameEvent_DefenderTooCloseToKickPoint struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that was found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that violates the distance to the kick point
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the distance [m] from bot to the kick point (including the minimum radius)
 	Distance *float32 `protobuf:"fixed32,4,opt,name=distance" json:"distance,omitempty"`
 }
@@ -1571,11 +1570,11 @@ func (*GameEvent_DefenderTooCloseToKickPoint) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 6}
 }
 
-func (x *GameEvent_DefenderTooCloseToKickPoint) GetByTeam() tracked.Team {
+func (x *GameEvent_DefenderTooCloseToKickPoint) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_DefenderTooCloseToKickPoint) GetByBot() uint32 {
@@ -1585,7 +1584,7 @@ func (x *GameEvent_DefenderTooCloseToKickPoint) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_DefenderTooCloseToKickPoint) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_DefenderTooCloseToKickPoint) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1610,7 +1609,7 @@ type GameEvent_BotCrashDrawn struct {
 	// the bot of the blue team
 	BotBlue *uint32 `protobuf:"varint,2,opt,name=bot_blue,json=botBlue" json:"bot_blue,omitempty"`
 	// the location of the crash (center between both bots) [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the calculated crash speed [m/s] of the two bots
 	CrashSpeed *float32 `protobuf:"fixed32,4,opt,name=crash_speed,json=crashSpeed" json:"crash_speed,omitempty"`
 	// the difference [m/s] of the velocity of the two bots
@@ -1667,7 +1666,7 @@ func (x *GameEvent_BotCrashDrawn) GetBotBlue() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotCrashDrawn) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotCrashDrawn) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1702,13 +1701,13 @@ type GameEvent_BotCrashUnique struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that caused the crash
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that caused the crash
 	Violator *uint32 `protobuf:"varint,2,opt,name=violator" json:"violator,omitempty"`
 	// the bot of the opposite team that was involved in the crash
 	Victim *uint32 `protobuf:"varint,3,opt,name=victim" json:"victim,omitempty"`
 	// the location of the crash (center between both bots) [m]
-	Location *tracked.Vector2 `protobuf:"bytes,4,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,4,opt,name=location" json:"location,omitempty"`
 	// the calculated crash speed vector [m/s] of the two bots
 	CrashSpeed *float32 `protobuf:"fixed32,5,opt,name=crash_speed,json=crashSpeed" json:"crash_speed,omitempty"`
 	// the difference [m/s] of the velocity of the two bots
@@ -1751,11 +1750,11 @@ func (*GameEvent_BotCrashUnique) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 8}
 }
 
-func (x *GameEvent_BotCrashUnique) GetByTeam() tracked.Team {
+func (x *GameEvent_BotCrashUnique) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotCrashUnique) GetViolator() uint32 {
@@ -1772,7 +1771,7 @@ func (x *GameEvent_BotCrashUnique) GetVictim() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotCrashUnique) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotCrashUnique) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1807,13 +1806,13 @@ type GameEvent_BotPushedBot struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that pushed the other team
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that pushed the other bot
 	Violator *uint32 `protobuf:"varint,2,opt,name=violator" json:"violator,omitempty"`
 	// the bot of the opposite team that was pushed
 	Victim *uint32 `protobuf:"varint,3,opt,name=victim" json:"victim,omitempty"`
 	// the location of the push (center between both bots) [m]
-	Location *tracked.Vector2 `protobuf:"bytes,4,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,4,opt,name=location" json:"location,omitempty"`
 	// the pushed distance [m]
 	PushedDistance *float32 `protobuf:"fixed32,5,opt,name=pushed_distance,json=pushedDistance" json:"pushed_distance,omitempty"`
 }
@@ -1850,11 +1849,11 @@ func (*GameEvent_BotPushedBot) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 9}
 }
 
-func (x *GameEvent_BotPushedBot) GetByTeam() tracked.Team {
+func (x *GameEvent_BotPushedBot) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotPushedBot) GetViolator() uint32 {
@@ -1871,7 +1870,7 @@ func (x *GameEvent_BotPushedBot) GetVictim() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotPushedBot) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotPushedBot) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -1892,13 +1891,13 @@ type GameEvent_BotTippedOver struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that tipped over
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location of the ball at the moment when this foul occurred [m]
-	BallLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
+	BallLocation *Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
 }
 
 func (x *GameEvent_BotTippedOver) Reset() {
@@ -1933,11 +1932,11 @@ func (*GameEvent_BotTippedOver) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 10}
 }
 
-func (x *GameEvent_BotTippedOver) GetByTeam() tracked.Team {
+func (x *GameEvent_BotTippedOver) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotTippedOver) GetByBot() uint32 {
@@ -1947,14 +1946,14 @@ func (x *GameEvent_BotTippedOver) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotTippedOver) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotTippedOver) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_BotTippedOver) GetBallLocation() *tracked.Vector2 {
+func (x *GameEvent_BotTippedOver) GetBallLocation() *Vector2 {
 	if x != nil {
 		return x.BallLocation
 	}
@@ -1968,13 +1967,13 @@ type GameEvent_BotDroppedParts struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that dropped the parts
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the parts were dropped [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the location of the ball at the moment when this foul occurred [m]
-	BallLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
+	BallLocation *Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
 }
 
 func (x *GameEvent_BotDroppedParts) Reset() {
@@ -2009,11 +2008,11 @@ func (*GameEvent_BotDroppedParts) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 11}
 }
 
-func (x *GameEvent_BotDroppedParts) GetByTeam() tracked.Team {
+func (x *GameEvent_BotDroppedParts) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotDroppedParts) GetByBot() uint32 {
@@ -2023,14 +2022,14 @@ func (x *GameEvent_BotDroppedParts) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotDroppedParts) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotDroppedParts) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
 	return nil
 }
 
-func (x *GameEvent_BotDroppedParts) GetBallLocation() *tracked.Vector2 {
+func (x *GameEvent_BotDroppedParts) GetBallLocation() *Vector2 {
 	if x != nil {
 		return x.BallLocation
 	}
@@ -2044,11 +2043,11 @@ type GameEvent_DefenderInDefenseArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that is inside the penalty area
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the distance [m] from bot case to the nearest point outside the defense area
 	Distance *float32 `protobuf:"fixed32,4,opt,name=distance" json:"distance,omitempty"`
 }
@@ -2085,11 +2084,11 @@ func (*GameEvent_DefenderInDefenseArea) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 12}
 }
 
-func (x *GameEvent_DefenderInDefenseArea) GetByTeam() tracked.Team {
+func (x *GameEvent_DefenderInDefenseArea) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_DefenderInDefenseArea) GetByBot() uint32 {
@@ -2099,7 +2098,7 @@ func (x *GameEvent_DefenderInDefenseArea) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_DefenderInDefenseArea) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_DefenderInDefenseArea) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2120,15 +2119,15 @@ type GameEvent_DefenderInDefenseAreaPartially struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that is partially inside the penalty area
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the distance [m] that the bot is inside the penalty area
 	Distance *float32 `protobuf:"fixed32,4,opt,name=distance" json:"distance,omitempty"`
 	// the location of the ball at the moment when this foul occurred [m]
-	BallLocation *tracked.Vector2 `protobuf:"bytes,5,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
+	BallLocation *Vector2 `protobuf:"bytes,5,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
 }
 
 func (x *GameEvent_DefenderInDefenseAreaPartially) Reset() {
@@ -2163,11 +2162,11 @@ func (*GameEvent_DefenderInDefenseAreaPartially) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 13}
 }
 
-func (x *GameEvent_DefenderInDefenseAreaPartially) GetByTeam() tracked.Team {
+func (x *GameEvent_DefenderInDefenseAreaPartially) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_DefenderInDefenseAreaPartially) GetByBot() uint32 {
@@ -2177,7 +2176,7 @@ func (x *GameEvent_DefenderInDefenseAreaPartially) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_DefenderInDefenseAreaPartially) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_DefenderInDefenseAreaPartially) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2191,7 +2190,7 @@ func (x *GameEvent_DefenderInDefenseAreaPartially) GetDistance() float32 {
 	return 0
 }
 
-func (x *GameEvent_DefenderInDefenseAreaPartially) GetBallLocation() *tracked.Vector2 {
+func (x *GameEvent_DefenderInDefenseAreaPartially) GetBallLocation() *Vector2 {
 	if x != nil {
 		return x.BallLocation
 	}
@@ -2205,11 +2204,11 @@ type GameEvent_AttackerTouchedBallInDefenseArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that is inside the penalty area
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the distance [m] that the bot is inside the penalty area
 	Distance *float32 `protobuf:"fixed32,4,opt,name=distance" json:"distance,omitempty"`
 }
@@ -2246,11 +2245,11 @@ func (*GameEvent_AttackerTouchedBallInDefenseArea) Descriptor() ([]byte, []int) 
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 14}
 }
 
-func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetByTeam() tracked.Team {
+func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetByBot() uint32 {
@@ -2260,7 +2259,7 @@ func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_AttackerTouchedBallInDefenseArea) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2281,11 +2280,11 @@ type GameEvent_BotKickedBallTooFast struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that kicked too fast
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the ball at the time of the highest speed [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the absolute initial ball speed (kick speed) [m/s]
 	InitialBallSpeed *float32 `protobuf:"fixed32,4,opt,name=initial_ball_speed,json=initialBallSpeed" json:"initial_ball_speed,omitempty"`
 	// was the ball chipped?
@@ -2324,11 +2323,11 @@ func (*GameEvent_BotKickedBallTooFast) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 15}
 }
 
-func (x *GameEvent_BotKickedBallTooFast) GetByTeam() tracked.Team {
+func (x *GameEvent_BotKickedBallTooFast) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotKickedBallTooFast) GetByBot() uint32 {
@@ -2338,7 +2337,7 @@ func (x *GameEvent_BotKickedBallTooFast) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotKickedBallTooFast) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotKickedBallTooFast) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2366,13 +2365,13 @@ type GameEvent_BotDribbledBallTooFar struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that dribbled too far
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location where the dribbling started [m]
-	Start *tracked.Vector2 `protobuf:"bytes,3,opt,name=start" json:"start,omitempty"`
+	Start *Vector2 `protobuf:"bytes,3,opt,name=start" json:"start,omitempty"`
 	// the location where the maximum dribbling distance was reached [m]
-	End *tracked.Vector2 `protobuf:"bytes,4,opt,name=end" json:"end,omitempty"`
+	End *Vector2 `protobuf:"bytes,4,opt,name=end" json:"end,omitempty"`
 }
 
 func (x *GameEvent_BotDribbledBallTooFar) Reset() {
@@ -2407,11 +2406,11 @@ func (*GameEvent_BotDribbledBallTooFar) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 16}
 }
 
-func (x *GameEvent_BotDribbledBallTooFar) GetByTeam() tracked.Team {
+func (x *GameEvent_BotDribbledBallTooFar) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotDribbledBallTooFar) GetByBot() uint32 {
@@ -2421,14 +2420,14 @@ func (x *GameEvent_BotDribbledBallTooFar) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotDribbledBallTooFar) GetStart() *tracked.Vector2 {
+func (x *GameEvent_BotDribbledBallTooFar) GetStart() *Vector2 {
 	if x != nil {
 		return x.Start
 	}
 	return nil
 }
 
-func (x *GameEvent_BotDribbledBallTooFar) GetEnd() *tracked.Vector2 {
+func (x *GameEvent_BotDribbledBallTooFar) GetEnd() *Vector2 {
 	if x != nil {
 		return x.End
 	}
@@ -2442,13 +2441,13 @@ type GameEvent_AttackerTouchedOpponentInDefenseArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that touched the opponent robot
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the bot of the opposite team that was touched
 	Victim *uint32 `protobuf:"varint,4,opt,name=victim" json:"victim,omitempty"`
 	// the location of the contact point between both bots [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 }
 
 func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) Reset() {
@@ -2483,11 +2482,11 @@ func (*GameEvent_AttackerTouchedOpponentInDefenseArea) Descriptor() ([]byte, []i
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 17}
 }
 
-func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetByTeam() tracked.Team {
+func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetByBot() uint32 {
@@ -2504,7 +2503,7 @@ func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetVictim() uint32 {
 	return 0
 }
 
-func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_AttackerTouchedOpponentInDefenseArea) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2518,11 +2517,11 @@ type GameEvent_AttackerDoubleTouchedBall struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that touched the ball twice
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the ball when it was first touched [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 }
 
 func (x *GameEvent_AttackerDoubleTouchedBall) Reset() {
@@ -2557,11 +2556,11 @@ func (*GameEvent_AttackerDoubleTouchedBall) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 18}
 }
 
-func (x *GameEvent_AttackerDoubleTouchedBall) GetByTeam() tracked.Team {
+func (x *GameEvent_AttackerDoubleTouchedBall) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_AttackerDoubleTouchedBall) GetByBot() uint32 {
@@ -2571,7 +2570,7 @@ func (x *GameEvent_AttackerDoubleTouchedBall) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_AttackerDoubleTouchedBall) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_AttackerDoubleTouchedBall) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2585,15 +2584,15 @@ type GameEvent_AttackerTooCloseToDefenseArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that is too close to the defense area
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the distance [m] of the bot to the penalty area
 	Distance *float32 `protobuf:"fixed32,4,opt,name=distance" json:"distance,omitempty"`
 	// the location of the ball at the moment when this foul occurred [m]
-	BallLocation *tracked.Vector2 `protobuf:"bytes,5,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
+	BallLocation *Vector2 `protobuf:"bytes,5,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
 }
 
 func (x *GameEvent_AttackerTooCloseToDefenseArea) Reset() {
@@ -2628,11 +2627,11 @@ func (*GameEvent_AttackerTooCloseToDefenseArea) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 19}
 }
 
-func (x *GameEvent_AttackerTooCloseToDefenseArea) GetByTeam() tracked.Team {
+func (x *GameEvent_AttackerTooCloseToDefenseArea) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_AttackerTooCloseToDefenseArea) GetByBot() uint32 {
@@ -2642,7 +2641,7 @@ func (x *GameEvent_AttackerTooCloseToDefenseArea) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_AttackerTooCloseToDefenseArea) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_AttackerTooCloseToDefenseArea) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2656,7 +2655,7 @@ func (x *GameEvent_AttackerTooCloseToDefenseArea) GetDistance() float32 {
 	return 0
 }
 
-func (x *GameEvent_AttackerTooCloseToDefenseArea) GetBallLocation() *tracked.Vector2 {
+func (x *GameEvent_AttackerTooCloseToDefenseArea) GetBallLocation() *Vector2 {
 	if x != nil {
 		return x.BallLocation
 	}
@@ -2670,11 +2669,11 @@ type GameEvent_BotHeldBallDeliberately struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that holds the ball
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the ball [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 	// the duration [s] that the bot hold the ball
 	Duration *float32 `protobuf:"fixed32,4,opt,name=duration" json:"duration,omitempty"`
 }
@@ -2711,11 +2710,11 @@ func (*GameEvent_BotHeldBallDeliberately) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 20}
 }
 
-func (x *GameEvent_BotHeldBallDeliberately) GetByTeam() tracked.Team {
+func (x *GameEvent_BotHeldBallDeliberately) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotHeldBallDeliberately) GetByBot() uint32 {
@@ -2725,7 +2724,7 @@ func (x *GameEvent_BotHeldBallDeliberately) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotHeldBallDeliberately) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotHeldBallDeliberately) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2746,11 +2745,11 @@ type GameEvent_BotInterferedPlacement struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the bot that interfered the placement
 	ByBot *uint32 `protobuf:"varint,2,opt,name=by_bot,json=byBot" json:"by_bot,omitempty"`
 	// the location of the bot [m]
-	Location *tracked.Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
 }
 
 func (x *GameEvent_BotInterferedPlacement) Reset() {
@@ -2785,11 +2784,11 @@ func (*GameEvent_BotInterferedPlacement) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 21}
 }
 
-func (x *GameEvent_BotInterferedPlacement) GetByTeam() tracked.Team {
+func (x *GameEvent_BotInterferedPlacement) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_BotInterferedPlacement) GetByBot() uint32 {
@@ -2799,7 +2798,7 @@ func (x *GameEvent_BotInterferedPlacement) GetByBot() uint32 {
 	return 0
 }
 
-func (x *GameEvent_BotInterferedPlacement) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BotInterferedPlacement) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -2813,7 +2812,7 @@ type GameEvent_MultipleCards struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that received multiple yellow cards
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_MultipleCards) Reset() {
@@ -2848,11 +2847,11 @@ func (*GameEvent_MultipleCards) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 22}
 }
 
-func (x *GameEvent_MultipleCards) GetByTeam() tracked.Team {
+func (x *GameEvent_MultipleCards) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // a team collected multiple fouls, which results in a yellow card
@@ -2862,7 +2861,7 @@ type GameEvent_MultipleFouls struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that collected multiple fouls
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the list of game events that caused the multiple fouls
 	CausedGameEvents []*GameEvent `protobuf:"bytes,2,rep,name=caused_game_events,json=causedGameEvents" json:"caused_game_events,omitempty"`
 }
@@ -2899,11 +2898,11 @@ func (*GameEvent_MultipleFouls) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 23}
 }
 
-func (x *GameEvent_MultipleFouls) GetByTeam() tracked.Team {
+func (x *GameEvent_MultipleFouls) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_MultipleFouls) GetCausedGameEvents() []*GameEvent {
@@ -2920,7 +2919,7 @@ type GameEvent_MultiplePlacementFailures struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that failed multiple times
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_MultiplePlacementFailures) Reset() {
@@ -2955,11 +2954,11 @@ func (*GameEvent_MultiplePlacementFailures) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 24}
 }
 
-func (x *GameEvent_MultiplePlacementFailures) GetByTeam() tracked.Team {
+func (x *GameEvent_MultiplePlacementFailures) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // timeout waiting for the attacking team to perform the free kick
@@ -2969,9 +2968,9 @@ type GameEvent_KickTimeout struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that that should have kicked
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the location of the ball [m]
-	Location *tracked.Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
 	// the time [s] that was waited
 	Time *float32 `protobuf:"fixed32,3,opt,name=time" json:"time,omitempty"`
 }
@@ -3008,14 +3007,14 @@ func (*GameEvent_KickTimeout) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 25}
 }
 
-func (x *GameEvent_KickTimeout) GetByTeam() tracked.Team {
+func (x *GameEvent_KickTimeout) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
-func (x *GameEvent_KickTimeout) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_KickTimeout) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -3036,7 +3035,7 @@ type GameEvent_NoProgressInGame struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the location of the ball
-	Location *tracked.Vector2 `protobuf:"bytes,1,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,1,opt,name=location" json:"location,omitempty"`
 	// the time [s] that was waited
 	Time *float32 `protobuf:"fixed32,2,opt,name=time" json:"time,omitempty"`
 }
@@ -3073,7 +3072,7 @@ func (*GameEvent_NoProgressInGame) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 26}
 }
 
-func (x *GameEvent_NoProgressInGame) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_NoProgressInGame) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -3094,7 +3093,7 @@ type GameEvent_PlacementFailed struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that failed
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the remaining distance [m] from ball to placement position
 	RemainingDistance *float32 `protobuf:"fixed32,2,opt,name=remaining_distance,json=remainingDistance" json:"remaining_distance,omitempty"`
 	// the distance [m] of the nearest own robot to the ball
@@ -3133,11 +3132,11 @@ func (*GameEvent_PlacementFailed) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 27}
 }
 
-func (x *GameEvent_PlacementFailed) GetByTeam() tracked.Team {
+func (x *GameEvent_PlacementFailed) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_PlacementFailed) GetRemainingDistance() float32 {
@@ -3161,7 +3160,7 @@ type GameEvent_UnsportingBehaviorMinor struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// an explanation of the situation and decision
 	Reason *string `protobuf:"bytes,2,req,name=reason" json:"reason,omitempty"`
 }
@@ -3198,11 +3197,11 @@ func (*GameEvent_UnsportingBehaviorMinor) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 28}
 }
 
-func (x *GameEvent_UnsportingBehaviorMinor) GetByTeam() tracked.Team {
+func (x *GameEvent_UnsportingBehaviorMinor) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_UnsportingBehaviorMinor) GetReason() string {
@@ -3219,7 +3218,7 @@ type GameEvent_UnsportingBehaviorMajor struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// an explanation of the situation and decision
 	Reason *string `protobuf:"bytes,2,req,name=reason" json:"reason,omitempty"`
 }
@@ -3256,11 +3255,11 @@ func (*GameEvent_UnsportingBehaviorMajor) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 29}
 }
 
-func (x *GameEvent_UnsportingBehaviorMajor) GetByTeam() tracked.Team {
+func (x *GameEvent_UnsportingBehaviorMajor) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_UnsportingBehaviorMajor) GetReason() string {
@@ -3277,9 +3276,9 @@ type GameEvent_KeeperHeldBall struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that found guilty
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the location of the ball [m]
-	Location *tracked.Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
 	// the duration [s] that the keeper hold the ball
 	Duration *float32 `protobuf:"fixed32,3,opt,name=duration" json:"duration,omitempty"`
 }
@@ -3316,14 +3315,14 @@ func (*GameEvent_KeeperHeldBall) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 30}
 }
 
-func (x *GameEvent_KeeperHeldBall) GetByTeam() tracked.Team {
+func (x *GameEvent_KeeperHeldBall) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
-func (x *GameEvent_KeeperHeldBall) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_KeeperHeldBall) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -3344,7 +3343,7 @@ type GameEvent_PlacementSucceeded struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that did the placement
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the time [s] taken for placing the ball
 	TimeTaken *float32 `protobuf:"fixed32,2,opt,name=time_taken,json=timeTaken" json:"time_taken,omitempty"`
 	// the distance [m] between placement location and actual ball position
@@ -3385,11 +3384,11 @@ func (*GameEvent_PlacementSucceeded) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 31}
 }
 
-func (x *GameEvent_PlacementSucceeded) GetByTeam() tracked.Team {
+func (x *GameEvent_PlacementSucceeded) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_PlacementSucceeded) GetTimeTaken() float32 {
@@ -3469,7 +3468,7 @@ type GameEvent_BotSubstitution struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that substitutes robots
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_BotSubstitution) Reset() {
@@ -3504,11 +3503,11 @@ func (*GameEvent_BotSubstitution) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 33}
 }
 
-func (x *GameEvent_BotSubstitution) GetByTeam() tracked.Team {
+func (x *GameEvent_BotSubstitution) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // A foul for excessive bot substitutions
@@ -3518,7 +3517,7 @@ type GameEvent_ExcessiveBotSubstitution struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that substitutes robots
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_ExcessiveBotSubstitution) Reset() {
@@ -3553,11 +3552,11 @@ func (*GameEvent_ExcessiveBotSubstitution) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 34}
 }
 
-func (x *GameEvent_ExcessiveBotSubstitution) GetByTeam() tracked.Team {
+func (x *GameEvent_ExcessiveBotSubstitution) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // A challenge flag, requested by a team previously, is flagged
@@ -3567,7 +3566,7 @@ type GameEvent_ChallengeFlag struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that requested the challenge flag
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_ChallengeFlag) Reset() {
@@ -3602,11 +3601,11 @@ func (*GameEvent_ChallengeFlag) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 35}
 }
 
-func (x *GameEvent_ChallengeFlag) GetByTeam() tracked.Team {
+func (x *GameEvent_ChallengeFlag) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // A challenge, flagged recently, has been handled by the referee
@@ -3616,7 +3615,7 @@ type GameEvent_ChallengeFlagHandled struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that requested the challenge flag
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the challenge was accepted by the referee
 	Accepted *bool `protobuf:"varint,2,req,name=accepted" json:"accepted,omitempty"`
 }
@@ -3653,11 +3652,11 @@ func (*GameEvent_ChallengeFlagHandled) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 36}
 }
 
-func (x *GameEvent_ChallengeFlagHandled) GetByTeam() tracked.Team {
+func (x *GameEvent_ChallengeFlagHandled) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_ChallengeFlagHandled) GetAccepted() bool {
@@ -3674,7 +3673,7 @@ type GameEvent_EmergencyStop struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that substitutes robots
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 }
 
 func (x *GameEvent_EmergencyStop) Reset() {
@@ -3709,11 +3708,11 @@ func (*GameEvent_EmergencyStop) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 37}
 }
 
-func (x *GameEvent_EmergencyStop) GetByTeam() tracked.Team {
+func (x *GameEvent_EmergencyStop) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 // a team has too many robots on the field
@@ -3723,13 +3722,13 @@ type GameEvent_TooManyRobots struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that has too many robots
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// number of robots allowed at the moment
 	NumRobotsAllowed *int32 `protobuf:"varint,2,opt,name=num_robots_allowed,json=numRobotsAllowed" json:"num_robots_allowed,omitempty"`
 	// number of robots currently on the field
 	NumRobotsOnField *int32 `protobuf:"varint,3,opt,name=num_robots_on_field,json=numRobotsOnField" json:"num_robots_on_field,omitempty"`
 	// the location of the ball at the moment when this foul occurred [m]
-	BallLocation *tracked.Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
+	BallLocation *Vector2 `protobuf:"bytes,4,opt,name=ball_location,json=ballLocation" json:"ball_location,omitempty"`
 }
 
 func (x *GameEvent_TooManyRobots) Reset() {
@@ -3764,11 +3763,11 @@ func (*GameEvent_TooManyRobots) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 38}
 }
 
-func (x *GameEvent_TooManyRobots) GetByTeam() tracked.Team {
+func (x *GameEvent_TooManyRobots) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
 func (x *GameEvent_TooManyRobots) GetNumRobotsAllowed() int32 {
@@ -3785,7 +3784,7 @@ func (x *GameEvent_TooManyRobots) GetNumRobotsOnField() int32 {
 	return 0
 }
 
-func (x *GameEvent_TooManyRobots) GetBallLocation() *tracked.Vector2 {
+func (x *GameEvent_TooManyRobots) GetBallLocation() *Vector2 {
 	if x != nil {
 		return x.BallLocation
 	}
@@ -3799,9 +3798,9 @@ type GameEvent_BoundaryCrossing struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that has too many robots
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the location of the ball [m]
-	Location *tracked.Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
 }
 
 func (x *GameEvent_BoundaryCrossing) Reset() {
@@ -3836,14 +3835,14 @@ func (*GameEvent_BoundaryCrossing) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 39}
 }
 
-func (x *GameEvent_BoundaryCrossing) GetByTeam() tracked.Team {
+func (x *GameEvent_BoundaryCrossing) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
-func (x *GameEvent_BoundaryCrossing) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_BoundaryCrossing) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -3857,9 +3856,9 @@ type GameEvent_PenaltyKickFailed struct {
 	unknownFields protoimpl.UnknownFields
 
 	// the team that last touched the ball
-	ByTeam *tracked.Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
+	ByTeam *Team `protobuf:"varint,1,req,name=by_team,json=byTeam,enum=Team" json:"by_team,omitempty"`
 	// the location of the ball at the moment of this event [m]
-	Location *tracked.Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
+	Location *Vector2 `protobuf:"bytes,2,opt,name=location" json:"location,omitempty"`
 	// an explanation of the failure
 	Reason *string `protobuf:"bytes,3,opt,name=reason" json:"reason,omitempty"`
 }
@@ -3896,14 +3895,14 @@ func (*GameEvent_PenaltyKickFailed) Descriptor() ([]byte, []int) {
 	return file_ssl_gc_game_event_proto_rawDescGZIP(), []int{0, 40}
 }
 
-func (x *GameEvent_PenaltyKickFailed) GetByTeam() tracked.Team {
+func (x *GameEvent_PenaltyKickFailed) GetByTeam() Team {
 	if x != nil && x.ByTeam != nil {
 		return *x.ByTeam
 	}
-	return tracked.Team(0)
+	return Team_UNKNOWN
 }
 
-func (x *GameEvent_PenaltyKickFailed) GetLocation() *tracked.Vector2 {
+func (x *GameEvent_PenaltyKickFailed) GetLocation() *Vector2 {
 	if x != nil {
 		return x.Location
 	}
@@ -4609,10 +4608,10 @@ var file_ssl_gc_game_event_proto_rawDesc = []byte{
 	0x4c, 0x59, 0x10, 0x1e, 0x1a, 0x02, 0x08, 0x01, 0x12, 0x23, 0x0a, 0x1b, 0x4d, 0x55, 0x4c, 0x54,
 	0x49, 0x50, 0x4c, 0x45, 0x5f, 0x50, 0x4c, 0x41, 0x43, 0x45, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x46,
 	0x41, 0x49, 0x4c, 0x55, 0x52, 0x45, 0x53, 0x10, 0x21, 0x1a, 0x02, 0x08, 0x01, 0x42, 0x07, 0x0a,
-	0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x42, 0x36, 0x5a, 0x34, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x52, 0x6f, 0x62, 0x6f, 0x43, 0x75, 0x70, 0x2d, 0x53, 0x53, 0x4c,
-	0x2f, 0x73, 0x73, 0x6c, 0x2d, 0x76, 0x69, 0x73, 0x69, 0x6f, 0x6e, 0x2d, 0x63, 0x6c, 0x69, 0x65,
-	0x6e, 0x74, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x72, 0x65, 0x66, 0x65, 0x72, 0x65, 0x65,
+	0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x42, 0x33, 0x5a, 0x31, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x48, 0x61, 0x6e, 0x73, 0x52, 0x6f, 0x62, 0x6f, 0x2f, 0x73, 0x73,
+	0x6c, 0x5f, 0x67, 0x75, 0x69, 0x5f, 0x74, 0x65, 0x73, 0x74, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x73,
+	0x73, 0x6c, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x73,
 }
 
 var (
@@ -4673,8 +4672,8 @@ var file_ssl_gc_game_event_proto_goTypes = []any{
 	(*GameEvent_TooManyRobots)(nil),                        // 40: GameEvent.TooManyRobots
 	(*GameEvent_BoundaryCrossing)(nil),                     // 41: GameEvent.BoundaryCrossing
 	(*GameEvent_PenaltyKickFailed)(nil),                    // 42: GameEvent.PenaltyKickFailed
-	(tracked.Team)(0),                                      // 43: Team
-	(*tracked.Vector2)(nil),                                // 44: Vector2
+	(Team)(0),                                              // 43: Team
+	(*Vector2)(nil),                                        // 44: Vector2
 }
 var file_ssl_gc_game_event_proto_depIdxs = []int32{
 	0,   // 0: GameEvent.type:type_name -> GameEvent.Type
@@ -4814,6 +4813,8 @@ func file_ssl_gc_game_event_proto_init() {
 	if File_ssl_gc_game_event_proto != nil {
 		return
 	}
+	file_ssl_gc_common_proto_init()
+	file_ssl_gc_geometry_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_ssl_gc_game_event_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*GameEvent); i {

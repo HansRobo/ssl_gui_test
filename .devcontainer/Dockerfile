@@ -1,5 +1,5 @@
 # Use the official Go image as the base image
-FROM golang:1.16
+FROM golang:1.23
 
 # Install Node.js and npm
 RUN apt-get update && apt-get install -y \
